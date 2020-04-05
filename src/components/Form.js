@@ -3,6 +3,11 @@ import Text from './Text.js'
 import FechaHoraElemento from './fechaHoraElemento.js'
 import uuid from 'uuid'
 
+//de Redux
+
+import {connect} from 'react-redux'
+import {agregarCita} from '../actions/citasActions'
+
 const stateInicial= {        
     cita:{
         Mascota:"",
@@ -38,7 +43,7 @@ class Form extends Component {
         }
         const nuevaCita = {...this.state.cita}
         nuevaCita.id = uuid();
-        this.props.crearNuevaCita(nuevaCita)
+        this.props.agregarCita(nuevaCita)
         this.setState({
             ...stateInicial
         })
@@ -122,4 +127,6 @@ class Form extends Component {
     }
 }
 
-export default Form;
+
+
+export default connect(null, {agregarCita}) (Form);

@@ -1,7 +1,22 @@
 import React from 'react';
 import Citas from './Citas.js'
 
-const AdminiCitas = ({citas, eliminarCita}) =>{ 
+// from Redux
+
+import {connect} from 'react-redux'
+
+ //pasar a localStorage
+ import store from '../store'
+ store.subscribe(() => {
+    localStorage.setItem('citas', JSON.stringify(store.getState()))
+})   
+ 
+const AdminiCitas = ({citas}) =>{ 
+
+    
+   
+   
+
     const mensaje = Object.keys(citas).length===0 ? 'No hay citas' : 'Administrador de Citas'
     return (
         <div className="card ml-5 py-3 my-5" >
@@ -12,9 +27,9 @@ const AdminiCitas = ({citas, eliminarCita}) =>{
                 <div className='lista-citas'> 
                     {citas.map(cita =>(                        
                         <Citas 
-                        key={cita.id}
-                        cita={cita}
-                        eliminarCita={eliminarCita}
+                            key={cita.id}
+                            cita={cita}
+                            
                         />
                     ))}
                 </div>   
@@ -23,5 +38,9 @@ const AdminiCitas = ({citas, eliminarCita}) =>{
     );
 }
 
+const mapStateToProps = state => ({
+    citas : state.citas.citas
+})
 
-export default AdminiCitas;
+
+export default connect(mapStateToProps) (AdminiCitas);

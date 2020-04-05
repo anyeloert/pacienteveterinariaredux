@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Citas = ({cita, eliminarCita}) => (
+// de Redux
+import {connect} from 'react-redux'
+import {borrarCita} from '../actions/citasActions'
+
+const Citas = ({cita, borrarCita}) => (
         <div className='media mt-3'>
             <div className='media-body'>
                 <h3 className = 'mt-0'>{cita.Mascota}</h3>
@@ -11,11 +15,11 @@ const Citas = ({cita, eliminarCita}) => (
                 <p className='card-text'>{cita.Síntomas}</p>
                 <button 
                 className='btn btn-danger'
-                onClick={()=> eliminarCita(cita.id)}
+                onClick={()=> borrarCita(cita.id)}
                 > Eliminar Cita                   
                 </button>
             </div>
         </div>
     );
 
-export default Citas;
+export default connect(null, {borrarCita}) (Citas);
